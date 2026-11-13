@@ -1,0 +1,5 @@
+pydantic==2.14.1
+psycopg[binary]==3.3.8
+pgvector==0.5.1
+python-dotenv==1.0.1
+langchain-openai==0.3.35

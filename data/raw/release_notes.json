@@ -1,0 +1,101 @@
+[
+  {
+    "release_id": "XENG-1806",
+    "product": "EnterpriseEngage",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "known_issue",
+    "title": "Inactivity timer debug logs do not reset after an interaction",
+    "details": "The debug logs for the inactivity timer do not reset after an interaction is made. The console timer also keeps counting down, and the problem affects both inactivity tracking and the modal display. Guidewire is aware of the issue; no fix is available yet. Status: Open.",
+    "affected_modules": ["DigitalPortal"],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_known-issues.html"
+  },
+  {
+    "release_id": "XENG-1913",
+    "product": "EnterpriseEngage",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "known_issue",
+    "title": "Unable to create Workers Comp submission through the EnterpriseEngage UI",
+    "details": "The submitClaim request fails and prevents you from creating a Workers' Comp submission in the EnterpriseEngage UI. Workaround: add the claimant role to the authorityPolicyRolesAllowed function in the ClaimContactAuthorizer.gs file, located in the ClaimCenter configuration module. Status: Open.",
+    "affected_modules": ["DigitalPortal", "ClaimCenter"],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_known-issues.html"
+  },
+  {
+    "release_id": "XENG-1911",
+    "product": "ProducerEngage",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "resolved_issue",
+    "title": "Claims could not be opened when reported by someone other than the policyholder",
+    "details": "Known prior to the Mammoth (2025.03) release and now fixed: a claim opened blank in ProducerEngage when the 'Reported by' field named someone other than the policyholder.",
+    "affected_modules": ["DigitalPortal", "ClaimCenter"],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_resolved-issues.html"
+  },
+  {
+    "release_id": "XENG-1912",
+    "product": "PolicyCenter",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "resolved_issue",
+    "title": "Insecure Direct Object Reference (IDOR) in the policy diff",
+    "details": "Known prior to the Mammoth (2025.03) release and now fixed: an Insecure Direct Object Reference (IDOR) vulnerability existed in the policy diff endpoint.",
+    "affected_modules": ["PolicyCenter"],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_resolved-issues.html"
+  },
+  {
+    "release_id": "JUT-20814",
+    "product": "Multiple Engage apps",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "resolved_issue",
+    "title": "Applications sometimes didn't log out after a set period of time",
+    "details": "Known prior to the Mammoth (2025.03) release and now fixed. Affected CustomerEngage Account Management, CustomerEngage Claims Management, ProducerEngage, ProducerEngage Claims Management, ServiceRepEngage, and VendorEngage: inactivity-based automatic logout worked inconsistently.",
+    "affected_modules": ["DigitalPortal"],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_resolved-issues.html"
+  },
+  {
+    "release_id": "PC-RN-palisades-sync",
+    "product": "PolicyCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "Improved and optimized product model synchronization",
+    "details": "A new synchronization architecture (version 2.0) shortens quote-time syncing by updating coverables only when a value they reference in an APD rule or lookup table has changed. Applies only to APD lines and can be enabled for specific lines or all of them.",
+    "affected_modules": ["PolicyCenter", "Rating/Gosu"],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/pc-release_highlights.html"
+  },
+  {
+    "release_id": "PC-RN-palisades-editionplugin",
+    "product": "PolicyCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "IProductEditionPlugin deprecated",
+    "details": "Clause-level product editions are now supported for APD-managed products, so the older IProductEditionPlugin interface is deprecated. Teams with custom implementations of this plugin should contact Guidewire to plan a transition before upgrading.",
+    "affected_modules": ["PolicyCenter", "Rating/Gosu"],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/pc-release_highlights.html"
+  },
+  {
+    "release_id": "BC-RN-palisades-funds",
+    "product": "BillingCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "Enhanced Funds Tracking (Early Access)",
+    "details": "Adds unapplied fund slices, which link each funds source (payments, ad-hoc credits, endorsements, suspense payments) to fund use events. Off by default; can be turned on from the Server Tools section.",
+    "affected_modules": ["BillingCenter"],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/bc-release_highlights.html"
+  },
+  {
+    "release_id": "BC-RN-palisades-previews",
+    "product": "BillingCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "Policy transaction previews",
+    "details": "Lets you see the invoice items that policy transactions would create before running them. Supported transactions are cancellations, policy changes, reinstatements, rewrites, renewals, and audits.",
+    "affected_modules": ["BillingCenter"],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/bc-release_highlights.html"
+  }
+]
