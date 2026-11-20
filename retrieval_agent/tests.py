@@ -161,6 +161,80 @@ class EvidenceAndRetrievalTests(unittest.TestCase):
                 fake_completion,
             )
 
+    def _records_and_valid_completion(self):
+        records = [{
+            "ticket_id": "T1", "description": "PolicyPeriod bind error",
+            "system": "PolicyCenter", "ticket_type": "Incident",
+            "retrieval_eligible": True, "embedding": [1.0, 0.0],
+            "resolution": None, "rca": None,
+            "source_metadata": {},
+        }]
+        completion = {
+            "new_ticket_assessment": {
+                "itil_type": "Incident", "suggested_level": "L2",
+                "system": "PolicyCenter", "failure_pattern": "bind error",
+                "confidence": "medium",
+            },
+            "matches": [{
+                "id": "T1", "match_strength": "strong",
+                "why_similar": "Same bind symptom", "what_differs": "not recorded",
+                "reusable_info": "not recorded", "missing_info": [],
+            }],
+            "no_confident_match": False,
+            "suggested_next_step": "Compare bind logs",
+        }
+        return records, completion
+
+    def test_missing_assessment_field_is_rejected(self):
+        records, completion = self._records_and_valid_completion()
+        del completion["new_ticket_assessment"]["failure_pattern"]
+        with self.assertRaisesRegex(RuntimeError, "incomplete ticket assessment"):
+            retrieve(
+                {"description": "PolicyPeriod bind error"}, records, settings(),
+                lambda query: [1.0, 0.0] if query else [0.0, 1.0],
+                lambda system_prompt, user_prompt: completion,
+            )
+
+    def test_invalid_itil_type_is_rejected(self):
+        records, completion = self._records_and_valid_completion()
+        completion["new_ticket_assessment"]["itil_type"] = "Bug"
+        with self.assertRaisesRegex(RuntimeError, "unsupported ITIL type"):
+            retrieve(
+                {"description": "PolicyPeriod bind error"}, records, settings(),
+                lambda query: [1.0, 0.0] if query else [0.0, 1.0],
+                lambda system_prompt, user_prompt: completion,
+            )
+
+    def test_invalid_suggested_level_is_rejected(self):
+        records, completion = self._records_and_valid_completion()
+        completion["new_ticket_assessment"]["suggested_level"] = "L5"
+        with self.assertRaisesRegex(RuntimeError, "unsupported support level"):
+            retrieve(
+                {"description": "PolicyPeriod bind error"}, records, settings(),
+                lambda query: [1.0, 0.0] if query else [0.0, 1.0],
+                lambda system_prompt, user_prompt: completion,
+            )
+
+    def test_invalid_confidence_is_rejected(self):
+        records, completion = self._records_and_valid_completion()
+        completion["new_ticket_assessment"]["confidence"] = "certain"
+        with self.assertRaisesRegex(RuntimeError, "unsupported confidence"):
+            retrieve(
+                {"description": "PolicyPeriod bind error"}, records, settings(),
+                lambda query: [1.0, 0.0] if query else [0.0, 1.0],
+                lambda system_prompt, user_prompt: completion,
+            )
+
+    def test_assessment_not_a_dict_is_rejected(self):
+        records, completion = self._records_and_valid_completion()
+        completion["new_ticket_assessment"] = "Incident"
+        with self.assertRaisesRegex(RuntimeError, "did not match the retrieval response schema"):
+            retrieve(
+                {"description": "PolicyPeriod bind error"}, records, settings(),
+                lambda query: [1.0, 0.0] if query else [0.0, 1.0],
+                lambda system_prompt, user_prompt: completion,
+            )
+
     def test_retrieval_returns_prompt_shape_and_three_line_summary(self):
         records = [{
             "ticket_id": "T1", "description": "PolicyPeriod bind error",
