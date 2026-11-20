@@ -1,0 +1,62 @@
+[
+  {
+    "record_id": "RCA-2025-041",
+    "record_type": "rca_report",
+    "incident_id": "INC-100480",
+    "date": "2025-11-14",
+    "participants": ["J. Alvarez (Incident Commander)", "R. Chen (PolicyCenter L3)", "Vendor: Guidewire Support"],
+    "module_reported": "PolicyCenter",
+    "title": "RCA-2025-041: PolicyCenter Full Outage Due to Audit-Logging Deadlock",
+    "body": "On 2025-11-13 at 15:45 UTC, PolicyCenter became fully unresponsive across all production app server nodes. All request-handling threads entered a BLOCKED state within 7 minutes of a traffic spike coinciding with month-end renewal processing. MIM bridge opened at 15:52. Thread dumps collected at 16:05 showed a classic lock-ordering deadlock: the new AuditLogInterceptor (shipped in PolicyCenter 2025.2.1 to meet SOC2 logging requirements) acquires a write lock on the audit ring-buffer before calling into DocumentGenService, while DocumentGenService's async callback path acquires the same ring-buffer lock before returning control to the interceptor. Under low concurrency this race was never hit in UAT; under renewal-day concurrency (4x normal thread count) it triggered within minutes.",
+    "root_cause": "Lock-ordering deadlock between AuditLogInterceptor and DocumentGenService, both introduced/modified in PolicyCenter 2025.2.1, only manifesting above a concurrency threshold not exercised in UAT testing.",
+    "corrective_actions": "Immediate: disabled AuditLogInterceptor via feature flag (gw.audit.interceptor.enabled=false), restored service at 18:20 UTC. Short-term: vendor case GW-88213 opened, Guidewire confirmed defect and committed a fix in 2025.2.2 patch (expected 2025-12-01). Long-term: added a load test scenario at 4x UAT concurrency to the pre-upgrade regression suite for every future release; added deadlock-detection alerting on JVM thread dumps in production APM."
+  },
+  {
+    "record_id": "CHAT-5512",
+    "record_type": "chat_transcript",
+    "incident_id": "INC-100234",
+    "date": "2025-11-02",
+    "participants": ["agent:priya.s", "agent:marcus.t"],
+    "module_reported": "PolicyCenter",
+    "title": "War-room chat: PolicyCenter submissions stuck after 2025.2.1 deploy",
+    "body": "priya.s: seeing a pile of submissions stuck in Processing since the 9am deploy window\nmarcus.t: same here, app logs full of GosuRuntimeException in PolicyPeriod.bind()\npriya.s: checked the release notes for 2025.2.1, there's an API rename listed - getLatestPeriod -> getLatestBoundPeriod\nmarcus.t: yep that's it, our custom UWApprovalRule.gs still calls the old method name\npriya.s: patching now, will redeploy to app01 first then roll to the rest\nmarcus.t: confirmed fixed on app01, stuck submissions reprocessing cleanly\npriya.s: rolling to app02-04, will close out once all clear",
+    "root_cause": null,
+    "corrective_actions": null
+  },
+  {
+    "record_id": "RCA-2025-038",
+    "record_type": "rca_report",
+    "incident_id": "INC-100340",
+    "date": "2025-11-07",
+    "participants": ["D. Osei (BillingCenter L2)", "Finance Reconciliation Team"],
+    "module_reported": "BillingCenter",
+    "title": "RCA-2025-038: Autopay Invoice Gap - 1,200 Accounts Missed in Monthly Run",
+    "body": "Monthly invoice batch on 2025-11-07 completed with a 0% reported error rate, giving a false sense of success. Finance reconciliation on 2025-11-07 afternoon discovered 1,200 autopay-enrolled accounts had no invoice generated for the cycle. Investigation found InvoiceGenBatch.gs filters accounts using the legacy boolean field cg_autopayenabled_legacy, which was deprecated in BillingCenter 2025.1 in favor of the cg_autopayenrollment entity, but the batch job's filter was never migrated during that upgrade.",
+    "root_cause": "Batch job filter logic was not updated when the underlying autopay data model changed in BillingCenter 2025.1, and no reconciliation check existed to catch invoice-count anomalies automatically.",
+    "corrective_actions": "Config change to point InvoiceGenBatch.gs at cg_autopayenrollment (same day fix). Added a post-batch reconciliation check comparing invoice count against active billable accounts, alerting if variance exceeds 1%. Added this class of 'silent batch success with data gap' to the upgrade regression checklist."
+  },
+  {
+    "record_id": "CHAT-5601",
+    "record_type": "chat_transcript",
+    "incident_id": "INC-100425",
+    "date": "2025-11-11",
+    "participants": ["agent:k.wong", "agent:integration-oncall"],
+    "module_reported": "IntegrationGateway",
+    "title": "Chat: claims payment file rejections to bank SFTP",
+    "body": "k.wong: bank rejected our payment extract again this morning, format validation error on field 14\nintegration-oncall: checking their advisory emails... found it, they widened field 14 from 10 to 12 chars two weeks ago\nk.wong: we never got that email, distro list issue?\nintegration-oncall: yeah we weren't on the updated distro, adding us now\nk.wong: updating the mapping template to 12 chars, testing against their sandbox\nintegration-oncall: sandbox validation passed, pushing to prod mapping\nk.wong: resolved, file accepted on retry",
+    "root_cause": null,
+    "corrective_actions": null
+  },
+  {
+    "record_id": "RCA-2025-045",
+    "record_type": "rca_report",
+    "incident_id": "INC-100455",
+    "date": "2025-11-12",
+    "participants": ["ClaimCenter Performance Team"],
+    "module_reported": "ClaimCenter",
+    "title": "RCA-2025-045: ClaimCenter Peak-Hour Latency - N+1 Query in Activity Widget",
+    "body": "Users reported 10-15 second page loads on the claim summary screen specifically between 12pm-2pm, the system's known peak concurrency window. APM distributed traces isolated the slow span to the newly introduced ClaimActivitySummary widget (shipped 3 weeks prior), which fetches related claim activities with one query per activity row instead of a single batched query - a classic N+1 pattern that only becomes visible once concurrent user count and per-claim activity count both cross a threshold.",
+    "root_cause": "N+1 query pattern in ClaimActivitySummary widget, invisible in low-volume testing, became the dominant latency driver under peak concurrent load.",
+    "corrective_actions": "Rewrote the widget's data access to use a single batched query keyed by claim_id list. Added a peak-load performance test (simulated 2x historical peak concurrency) to the pre-release checklist for any new ClaimCenter UI widget touching related-entity lookups."
+  }
+]

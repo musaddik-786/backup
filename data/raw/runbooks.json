@@ -1,0 +1,90 @@
+[
+  {
+    "runbook_id": "RB-PC-014",
+    "last_updated": "2025-08-10",
+    "owner_team": "PolicyCenter L3",
+    "module_reported": "PolicyCenter",
+    "title": "Runbook: Submissions Stuck in Processing State",
+    "trigger_condition": "Multiple PolicyPeriod records stuck in 'Processing' with no user-visible error, typically following a deployment or upgrade.",
+    "steps": [
+      "Check app server logs for GosuRuntimeException around PolicyPeriod.bind() or related bind-time rules.",
+      "Cross-reference the exception against the latest Guidewire release notes for any renamed or removed API methods in custom rule sets.",
+      "If a custom Gosu rule references a deprecated/removed API, patch the rule and redeploy to one app server first to validate before full rollout.",
+      "Run the StuckSubmissionReprocess batch script to clear and resubmit affected PolicyPeriods once the fix is deployed.",
+      "Notify underwriting leads once cleared and confirm no new occurrences for 2 hours."
+    ]
+  },
+  {
+    "runbook_id": "RB-BC-007",
+    "last_updated": "2025-06-01",
+    "owner_team": "BillingCenter L2",
+    "module_reported": "BillingCenter",
+    "title": "Runbook: Monthly Invoice Batch Reconciliation Check",
+    "trigger_condition": "After every monthly invoice generation batch run, regardless of reported batch status.",
+    "steps": [
+      "Do not rely solely on batch job 'success' status - a 0-error run can still silently skip accounts.",
+      "Run the post-batch reconciliation report comparing invoice count to count of active billable accounts.",
+      "If variance exceeds 1%, investigate filter conditions in InvoiceGenBatch.gs for any deprecated fields.",
+      "Escalate to BillingCenter L3 if the data model has changed in a recent upgrade and batch filters were not migrated."
+    ]
+  },
+  {
+    "runbook_id": "RB-CC-022",
+    "last_updated": "2025-07-15",
+    "owner_team": "ClaimCenter L3",
+    "module_reported": "ClaimCenter",
+    "title": "Runbook: Diagnosing Peak-Hour UI Latency",
+    "trigger_condition": "User reports of slow page loads concentrated in a specific time window (e.g. lunch-hour peak concurrency).",
+    "steps": [
+      "Pull APM distributed traces for the affected screen during the reported time window.",
+      "Look for N+1 query patterns, especially in recently added or modified UI widgets.",
+      "If found, confirm whether a batch-fetch API exists as a replacement (check latest ClaimCenter release notes).",
+      "Rewrite the widget's data access layer to use the batch API and load-test at 2x historical peak concurrency before deploying."
+    ]
+  },
+  {
+    "runbook_id": "RB-MIM-001",
+    "last_updated": "2025-05-20",
+    "owner_team": "Major Incident Management",
+    "module_reported": "PolicyCenter",
+    "title": "Runbook: Full Application Outage / Unresponsive App Servers",
+    "trigger_condition": "All or most app server threads unresponsive; users report complete inability to load the application.",
+    "steps": [
+      "Open MIM bridge immediately and declare incident commander.",
+      "Collect thread dumps from at least 2 affected app server nodes before any restart.",
+      "Analyze thread dumps for lock contention or deadlock patterns, especially around recently deployed interceptors or filters.",
+      "If a recently released feature is implicated, check for a feature flag to disable it as immediate mitigation rather than a full rollback.",
+      "Engage vendor support with thread dump evidence if the root cause is in vendor-shipped code.",
+      "File a formal RCA within 48 hours including root cause, immediate mitigation, and long-term corrective actions."
+    ]
+  },
+  {
+    "runbook_id": "RB-IG-009",
+    "last_updated": "2025-04-02",
+    "owner_team": "Integration Team",
+    "module_reported": "IntegrationGateway",
+    "title": "Runbook: Outbound File Rejected by External Partner",
+    "trigger_condition": "A scheduled outbound file transfer (payments, data extracts) is rejected by an external partner's validation.",
+    "steps": [
+      "Check the partner's most recent format/spec advisory emails or portal notices.",
+      "Confirm our team is on the correct advisory distribution list for this partner; if not, request to be added immediately.",
+      "Update the IntegrationGateway mapping template to match the new spec.",
+      "Validate against the partner's sandbox/test endpoint before resubmitting to production.",
+      "Document the spec change and add it to the integration partner's change log for future reference."
+    ]
+  },
+  {
+    "runbook_id": "RB-CM-011",
+    "last_updated": "2025-03-18",
+    "owner_team": "ContactManager L2",
+    "module_reported": "ContactManager",
+    "title": "Runbook: License Pool Exhausted / Users Cannot Log In",
+    "trigger_condition": "Users receive 'no license available' errors despite headcount being within the licensed pool.",
+    "steps": [
+      "Check for orphaned/stale sessions, especially following any recent VPN or network outage.",
+      "Run the session-cleanup script to release stale concurrent-user licenses.",
+      "Verify license pool is restored to expected availability.",
+      "If exhaustion recurs without a clear incident cause, request a license headroom review with the Guidewire account team."
+    ]
+  }
+]

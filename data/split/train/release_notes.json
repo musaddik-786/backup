@@ -1,0 +1,197 @@
+[
+  {
+    "release_id": "XENG-1806",
+    "product": "EnterpriseEngage",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "known_issue",
+    "title": "Inactivity timer debug logs do not reset after an interaction",
+    "details": "The debug logs for the inactivity timer do not reset after an interaction is made. The console timer also keeps counting down, and the problem affects both inactivity tracking and the modal display. Guidewire is aware of the issue; no fix is available yet. Status: Open.",
+    "affected_modules": [
+      "DigitalPortal"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_known-issues.html"
+  },
+  {
+    "release_id": "XENG-1913",
+    "product": "EnterpriseEngage",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "known_issue",
+    "title": "Unable to create Workers Comp submission through the EnterpriseEngage UI",
+    "details": "The submitClaim request fails and prevents you from creating a Workers' Comp submission in the EnterpriseEngage UI. Workaround: add the claimant role to the authorityPolicyRolesAllowed function in the ClaimContactAuthorizer.gs file, located in the ClaimCenter configuration module. Status: Open.",
+    "affected_modules": [
+      "DigitalPortal",
+      "ClaimCenter"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_known-issues.html"
+  },
+  {
+    "release_id": "XENG-1911",
+    "product": "ProducerEngage",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "resolved_issue",
+    "title": "Claims could not be opened when reported by someone other than the policyholder",
+    "details": "Known prior to the Mammoth (2025.03) release and now fixed: a claim opened blank in ProducerEngage when the 'Reported by' field named someone other than the policyholder.",
+    "affected_modules": [
+      "DigitalPortal",
+      "ClaimCenter"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_resolved-issues.html"
+  },
+  {
+    "release_id": "XENG-1912",
+    "product": "PolicyCenter",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "resolved_issue",
+    "title": "Insecure Direct Object Reference (IDOR) in the policy diff",
+    "details": "Known prior to the Mammoth (2025.03) release and now fixed: an Insecure Direct Object Reference (IDOR) vulnerability existed in the policy diff endpoint.",
+    "affected_modules": [
+      "PolicyCenter"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_resolved-issues.html"
+  },
+  {
+    "release_id": "JUT-20814",
+    "product": "Multiple Engage apps",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-03-01",
+    "note_type": "resolved_issue",
+    "title": "Applications sometimes didn't log out after a set period of time",
+    "details": "Known prior to the Mammoth (2025.03) release and now fixed. Affected CustomerEngage Account Management, CustomerEngage Claims Management, ProducerEngage, ProducerEngage Claims Management, ServiceRepEngage, and VendorEngage: inactivity-based automatic logout worked inconsistently.",
+    "affected_modules": [
+      "DigitalPortal"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/dxrelnotes/latest/topics/mammoth/c_resolved-issues.html"
+  },
+  {
+    "release_id": "PC-RN-palisades-sync",
+    "product": "PolicyCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "Improved and optimized product model synchronization",
+    "details": "A new synchronization architecture (version 2.0) shortens quote-time syncing by updating coverables only when a value they reference in an APD rule or lookup table has changed. Applies only to APD lines and can be enabled for specific lines or all of them.",
+    "affected_modules": [
+      "PolicyCenter",
+      "Rating/Gosu"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/pc-release_highlights.html"
+  },
+  {
+    "release_id": "PC-RN-palisades-editionplugin",
+    "product": "PolicyCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "IProductEditionPlugin deprecated",
+    "details": "Clause-level product editions are now supported for APD-managed products, so the older IProductEditionPlugin interface is deprecated. Teams with custom implementations of this plugin should contact Guidewire to plan a transition before upgrading.",
+    "affected_modules": [
+      "PolicyCenter",
+      "Rating/Gosu"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/pc-release_highlights.html"
+  },
+  {
+    "release_id": "BC-RN-palisades-funds",
+    "product": "BillingCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "Enhanced Funds Tracking (Early Access)",
+    "details": "Adds unapplied fund slices, which link each funds source (payments, ad-hoc credits, endorsements, suspense payments) to fund use events. Off by default; can be turned on from the Server Tools section.",
+    "affected_modules": [
+      "BillingCenter"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/bc-release_highlights.html"
+  },
+  {
+    "release_id": "BC-RN-palisades-previews",
+    "product": "BillingCenter",
+    "version": "Palisades",
+    "release_date": "2026-04-01",
+    "note_type": "feature",
+    "title": "Policy transaction previews",
+    "details": "Lets you see the invoice items that policy transactions would create before running them. Supported transactions are cancellations, policy changes, reinstatements, rewrites, renewals, and audits.",
+    "affected_modules": [
+      "BillingCenter"
+    ],
+    "source_url": "https://docs.guidewire.com/cloud/palisades/whatsnew/topics/bc-release_highlights.html"
+  },
+  {
+    "release_id": "GW-RN-2025-2-1-004",
+    "product": "PolicyCenter",
+    "version": "2025.2.1",
+    "release_date": "2025-11-01",
+    "note_type": "known_issue",
+    "title": "Breaking API change: PolicyPeriod.getLatestPeriod() renamed",
+    "details": "As part of the 2025.2.1 API cleanup, PolicyPeriod.getLatestPeriod() has been renamed to PolicyPeriod.getLatestBoundPeriod() to clarify semantics. Custom Gosu rules referencing the old method name will throw GosuRuntimeException at runtime. Customers should search custom rule sets for getLatestPeriod() prior to upgrading.",
+    "affected_modules": [
+      "PolicyCenter",
+      "Rating/Gosu"
+    ]
+  },
+  {
+    "release_id": "GW-RN-2025-2-1-012",
+    "product": "PolicyCenter",
+    "version": "2025.2.1",
+    "release_date": "2025-11-01",
+    "note_type": "feature",
+    "title": "New SOC2-compliant audit logging interceptor",
+    "details": "Introduces AuditLogInterceptor to capture all document-generation and policy-bind events for SOC2 compliance. Enabled by default. Can be disabled via gw.audit.interceptor.enabled=false if issues are observed.",
+    "affected_modules": [
+      "PolicyCenter"
+    ]
+  },
+  {
+    "release_id": "GW-RN-2025-2-2-001",
+    "product": "PolicyCenter",
+    "version": "2025.2.2",
+    "release_date": "2025-12-01",
+    "note_type": "fix",
+    "title": "Fix: Deadlock between AuditLogInterceptor and DocumentGenService under high concurrency",
+    "details": "Resolves a lock-ordering deadlock (vendor case GW-88213) between the new audit-logging interceptor and document generation service that could cause full application unresponsiveness under high concurrent load. Customers who disabled gw.audit.interceptor.enabled as a workaround may safely re-enable it after applying 2025.2.2.",
+    "affected_modules": [
+      "PolicyCenter"
+    ]
+  },
+  {
+    "release_id": "GW-RN-2025-1-0-009",
+    "product": "BillingCenter",
+    "version": "2025.1.0",
+    "release_date": "2025-09-15",
+    "note_type": "known_issue",
+    "title": "Autopay data model migration: cg_autopayenabled_legacy deprecated",
+    "details": "The legacy cg_autopayenabled_legacy boolean field is deprecated in favor of the new cg_autopayenrollment entity, which supports multiple payment methods per account. Any custom batch jobs or reports filtering on the legacy field must be migrated before this field is removed in a future release.",
+    "affected_modules": [
+      "BillingCenter"
+    ]
+  },
+  {
+    "release_id": "GW-RN-2025-1-3-002",
+    "product": "ClaimCenter",
+    "version": "2025.1.3",
+    "release_date": "2025-10-20",
+    "note_type": "fix",
+    "title": "Performance improvements to claim activity retrieval APIs",
+    "details": "Underlying activity retrieval APIs now support batch fetch by claim_id list to reduce N+1 query patterns in custom widgets. Existing custom widgets must be updated to use the new batch API to benefit; the old per-row API remains available but is now marked deprecated.",
+    "affected_modules": [
+      "ClaimCenter"
+    ]
+  },
+  {
+    "release_id": "GW-RN-2025-2-1-020",
+    "product": "PolicyCenter",
+    "version": "2025.2.1",
+    "release_date": "2025-11-01",
+    "note_type": "advisory",
+    "title": "Advisory: Rate table refactor changes discount comparison operators",
+    "details": "As part of the rating engine refactor shipped in 2025.2.1, several bundled discount rule templates were regenerated from updated rate tables. Guidewire recommends re-running backtest suites against sample quotes for any customized discount rules derived from these templates, as comparison operators in generated code may differ subtly from prior versions.",
+    "affected_modules": [
+      "Rating/Gosu",
+      "PolicyCenter"
+    ]
+  }
+]

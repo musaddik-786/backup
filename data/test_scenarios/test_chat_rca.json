@@ -1,0 +1,48 @@
+[
+  {
+    "record_id": "RCA-2025-001",
+    "record_type": "rca_report",
+    "incident_id": "T-SC-001",
+    "date": "2025-11-02",
+    "participants": [
+      "alice@guidewire.com",
+      "bob@guidewire.com",
+      "charlie@guidewire.com"
+    ],
+    "module_reported": "PolicyCenter",
+    "title": "PolicyCenter Engine Outage - November 2 RCA",
+    "body": "On 2025-11-02 at 08:15 UTC, PolicyCenter policy engine became unresponsive. All policy creation and modification operations failed. Root Cause: Memory leak in renewal engine calculations. Service hung when processing 50k+ policies in monthly renewal batch.",
+    "root_cause": "Memory leak in renewal engine v2.1.5 when processing bulk renewal operations. Garbage collection not triggered properly for large object arrays.",
+    "corrective_actions": "1. Patched renewal engine memory leak (commit abc123). 2. Added memory monitoring alert at 75% heap. 3. Implemented GC hint before bulk operations."
+  },
+  {
+    "record_id": "CHAT-2025-002",
+    "record_type": "chat_transcript",
+    "incident_id": null,
+    "date": "2025-11-07",
+    "participants": [
+      "support_agent@company.com",
+      "customer@acme.com"
+    ],
+    "module_reported": "can't log in to system",
+    "title": "Customer reports login issues",
+    "body": "Customer unable to log into the portal. Error message: 'Authentication service timeout'. Has tried clearing browser cache. Same error on different machines. Issue is intermittent - works sometimes, fails other times.",
+    "root_cause": null,
+    "corrective_actions": null
+  },
+  {
+    "record_id": "RCA-2025-003",
+    "record_type": "rca_report",
+    "incident_id": null,
+    "date": "2025-11-08",
+    "participants": [
+      "dba@guidewire.com",
+      "eng_lead@guidewire.com"
+    ],
+    "module_reported": "ClaimCenter database connection pooling",
+    "title": "ClaimCenter DB Connection Pool Exhaustion - Incident Analysis",
+    "body": "ClaimCenter database connection pool exhausted on 2025-11-08 after 3 hours of elevated claim processing load. New connections timed out after 30 seconds. Root cause: max_connections limit of 100 was too low for sustained claim batch processing. During peak hours, claim submission + approval workflows use ~120 concurrent connections.",
+    "root_cause": "Database max_connections limit (100) was lower than peak concurrent demand (~120 for claim workflows). No connection pool size validation logic in application layer.",
+    "corrective_actions": "1. Increased max_connections from 100 to 250. 2. Added application-level connection pool metrics. 3. Set alert if >80% pool utilization."
+  }
+]

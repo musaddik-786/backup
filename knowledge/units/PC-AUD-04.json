@@ -1,0 +1,57 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-AUD-004",
+  "root_cause_codes": [
+    "AUD-04"
+  ],
+  "play": "RB-AUD Play 4",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Audit Adjustments > General Liability",
+  "title": "GL audit wrong after a mid-term change (owner/partner payroll prorated, exposures split)",
+  "keywords": [
+    "general liability",
+    "audit",
+    "mid-term",
+    "endorsement",
+    "owner payroll",
+    "partner",
+    "executive officer",
+    "prorated",
+    "slice",
+    "exposure dates"
+  ],
+  "symptoms": [
+    "Owner or partner payroll prorated when a mid-term change has been keyed",
+    "GL audit wrong only on policies with mid-term endorsements"
+  ],
+  "cause": "A mid-term change splits the period into slices. Fixed annual payroll amounts for owners/partners/officers (per state GL rules - confirm with rating manual) are prorated across slices, or exposures added mid-term are not rated from their own effective date.",
+  "diagnosis": [
+    "Identify the slices and exposure effective dates",
+    "Compare per-slice basis for fixed-amount payroll and mid-term exposures"
+  ],
+  "resolution": [
+    "Revised audit with each exposure keyed on its own dates; fixed owner/partner payroll keyed once for the term"
+  ],
+  "workaround": "Manual adjustment approved by Premium Audit.",
+  "permanent_fix": "Rule: fixed-amount payroll is not prorated across slices; mid-term exposures rated from their own effective date.",
+  "escalation": "PC L3 Rating & Audit.",
+  "related_tickets": [
+    "T0201",
+    "T0281"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-AUD-04",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

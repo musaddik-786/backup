@@ -1,0 +1,61 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-AUD-005",
+  "root_cause_codes": [
+    "AUD-05"
+  ],
+  "play": "RB-AUD Play 5",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Audit Adjustments > General Liability",
+  "title": "GL audit stuck as pending, will not book, or review task incomplete",
+  "keywords": [
+    "general liability",
+    "audit pending",
+    "stuck",
+    "booking error",
+    "could not be closed",
+    "review task",
+    "exposure and rating review"
+  ],
+  "symptoms": [
+    "GL audits stuck as pending and cannot be closed",
+    "Booking error on a GL audit",
+    "Exposure and rating review task incomplete"
+  ],
+  "cause": "The audit waits on an open review activity, or the billing message failed or was not acknowledged, so the audit cannot complete.",
+  "diagnosis": [
+    "Check open activities on the policy",
+    "Check Administration > Message Queues for billing destination errors",
+    "Check the audit job status"
+  ],
+  "resolution": [
+    "Complete or reassign the open review activity",
+    "Retry failed billing messages and resync with Billing",
+    "Complete the audit, or withdraw and restart it",
+    "If needed, paired data fixes in PolicyCenter and Billing"
+  ],
+  "workaround": "None.",
+  "permanent_fix": "Monitor for audits pending more than 5 days; alert on billing message failures.",
+  "escalation": "PC L2 Application Support, then Integration Support / Billing Support.",
+  "related_tickets": [
+    "T0002",
+    "T0007",
+    "T0205",
+    "T0257"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-AUD-05",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

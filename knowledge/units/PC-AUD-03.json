@@ -1,0 +1,58 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-AUD-003",
+  "root_cause_codes": [
+    "AUD-03"
+  ],
+  "play": "RB-AUD Play 3",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Audit Adjustments > General Liability",
+  "title": "Automated GL audit creates premium or a credit with no change",
+  "keywords": [
+    "general liability",
+    "automated audit",
+    "audit line",
+    "audit trigger",
+    "if any",
+    "no change made",
+    "unexpected premium",
+    "credit with no change"
+  ],
+  "symptoms": [
+    "Automated GL audit line generates unexpected premium",
+    "GL audit term shows a credit with no change made"
+  ],
+  "cause": "The automated audit batch defaults audited basis from the estimate and re-rates every exposure. If GL rates, ILF or rounding changed since issue, a minimum premium applies, or 'if any' classes are defaulted, a delta appears with no basis change.",
+  "diagnosis": [
+    "Compare estimated vs audited basis on each exposure of the automated line",
+    "Check whether GL rates or ILF changed during the term",
+    "Check the automated audit job definition (T0095 change)"
+  ],
+  "resolution": [
+    "Reverse the automated audit line and reopen it for the auditor to enter"
+  ],
+  "workaround": "Suspend auto-initiation for the affected class codes.",
+  "permanent_fix": "Idempotent trigger: no line until the audited basis differs from the estimate; do not re-rate unchanged exposures (T0095).",
+  "escalation": "PC L3 Rating & Audit; Sev 2 if producing premium in bulk.",
+  "related_tickets": [
+    "T0095",
+    "T0140",
+    "T0260",
+    "T0265"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-AUD-03",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

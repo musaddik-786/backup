@@ -1,0 +1,62 @@
+{
+  "module": "PolicyCenter",
+  "runbook": "RB-OOS",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term and job number of the failing change",
+    "Change effective date and effective dates of all later bound jobs",
+    "What was changed (driver, vehicle/VIN, coverage, named insured)",
+    "Exact error text, screenshot, user ID and time with time zone",
+    "Whether the job was approved / UW referral cleared; other policies affected?"
+  ],
+  "version": "1.0",
+  "version_date": "2026-11-17",
+  "lob_scope": "auto (drivers/vehicles/VIN)",
+  "article_id": "KB-PC-OOS-002",
+  "root_cause_codes": [
+    "OOS-02"
+  ],
+  "play": "RB-OOS Play 2",
+  "category": "Policy Processing > OOS Endorsements",
+  "title": "OOS endorsement locked or stuck after approval or at rating",
+  "keywords": [
+    "out-of-sequence",
+    "locked",
+    "stuck",
+    "would not book",
+    "failed partway",
+    "locked at rating",
+    "approved"
+  ],
+  "symptoms": [
+    "Policy shows as locked; no further transaction possible",
+    "Approved OOS job never reaches Bound",
+    "OOS transactions stuck on several policies"
+  ],
+  "cause": "The job failed after approval or during quote/bind, leaving the period in Quoting, Binding or Draft with a workflow in error or a partly committed branch. Later jobs are blocked or preempted.",
+  "diagnosis": [
+    "Check job status in Policy File > Transactions",
+    "Check the job's workflow in Server Tools > Workflow",
+    "Check for other open jobs (draft renewal, audit) on the policy",
+    "If several policies: check recent releases and batch runs; raise severity"
+  ],
+  "resolution": [
+    "Retry or resume the workflow if it is in error",
+    "If still unbound, withdraw and re-create the change",
+    "If a branch is partly committed, L3 runs a scripted data fix under change control (Cloud: approved Gosu; on-premise: SQL only with DBA sign-off)"
+  ],
+  "workaround": "None for the customer. Give the agent an expected time and keep the original request.",
+  "permanent_fix": "Rollback handling in custom bind/approval code; monitor for jobs in Quoting/Binding over 1 hour.",
+  "escalation": "PC L2 Application Support; L3 Policy Transactions for data fixes. Sev 2 if locked more than 1 business day; Sev 1 if more than 5 policies.",
+  "related_tickets": [
+    "T0044",
+    "T0101",
+    "T0182",
+    "T0290",
+    "T0355"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-OOS-02",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

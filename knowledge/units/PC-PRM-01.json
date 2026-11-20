@@ -1,0 +1,61 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-PRM-001",
+  "root_cause_codes": [
+    "PRM-01"
+  ],
+  "play": "RB-PRM Play 7",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Premium Recalculation > General Liability",
+  "title": "Null premium error on GL cancellation or after removing a location or exposure",
+  "keywords": [
+    "general liability",
+    "null premium",
+    "cancellation",
+    "remove location",
+    "delete exposure",
+    "class code",
+    "premium null"
+  ],
+  "symptoms": [
+    "'Null premium' error at quote or bind of a GL cancellation or policy change",
+    "Billing-initiated cancellation does not process in PolicyCenter",
+    "Error after removing a GL location or exposure"
+  ],
+  "cause": "A GL cost row or its amount is null - typically a cost orphaned when an exposure or location is removed, or the cancellation pro-rata hitting a slice with no rated cost. Historical tickets name vehicles; the GL equivalent is inferred.",
+  "diagnosis": [
+    "Capture error text and time; find the trace in logs",
+    "Identify the exposure, slice and cost with a null amount",
+    "Check whether permanent fix T0271 covers GL exposures and locations"
+  ],
+  "resolution": [
+    "L3 removes the orphan GL cost (scripted data fix) and re-quotes",
+    "Retry the cancellation or change"
+  ],
+  "workaround": "Cancel from the next date that has rated costs, with UW approval.",
+  "permanent_fix": "Null-safe cost calculation per exposure; pre-bind guard; log alert. Reopen the Problem if it recurs after T0271.",
+  "escalation": "PC L3 Rating & Audit.",
+  "related_tickets": [
+    "T0147",
+    "T0252",
+    "T0253",
+    "T0271",
+    "T0284",
+    "T0309"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-PRM-01",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

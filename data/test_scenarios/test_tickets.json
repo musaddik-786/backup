@@ -1,0 +1,67 @@
+[
+  {
+    "ticket_id": "T-SC-001",
+    "created_at": "2025-11-01T08:00:00Z",
+    "closed_at": "2025-11-02T16:30:00Z",
+    "module_reported": "PolicyCenter",
+    "summary": "PolicyCenter policy issuance module down",
+    "description": "Users unable to create or modify policies in PolicyCenter. Error: 'Policy engine service unavailable'. Affects all tenants.",
+    "resolution_notes": "Restarted policy engine service. Cleared stale cache. Policy creation restored. Root cause: service hung on memory leak.",
+    "priority": "P1",
+    "assignee_team": "PolicyCenter-Core",
+    "guidewire_version": "Mammoth (2025.03)",
+    "status": "Closed"
+  },
+  {
+    "ticket_id": "T-AMB-002",
+    "created_at": "2025-11-05T10:15:00Z",
+    "closed_at": "2025-11-05T14:45:00Z",
+    "module_reported": "system error when clicking buttons",
+    "summary": "Intermittent button click failures in web UI",
+    "description": "Users report claims are not being saved when they click 'Submit Claim' in the system. Sometimes works, sometimes doesn't. Happens in ClaimCenter claim entry form.",
+    "resolution_notes": "Found race condition in claim submission handler. Updated JavaScript event listener to use debounce(500ms). Fixed in v2.1.8.",
+    "priority": "P3",
+    "assignee_team": "ClaimCenter-Frontend",
+    "guidewire_version": "Palisades",
+    "status": "Closed"
+  },
+  {
+    "ticket_id": "T-BILL-003",
+    "created_at": "2025-11-10T09:00:00Z",
+    "closed_at": "2025-11-10T17:20:00Z",
+    "module_reported": "BillingCenter invoice processing workflow",
+    "summary": "Invoice generation stuck for batch > 5000 records",
+    "description": "BillingCenter batch invoice generation fails when processing >5000 invoices in a single run. Error: 'memory exhausted in batch processor'.",
+    "resolution_notes": "Increased heap size from 4GB to 8GB. Optimized batch query pagination. Now handles 50k+ invoices smoothly.",
+    "priority": "P4",
+    "assignee_team": "BillingCenter-Backend",
+    "guidewire_version": "Mammoth (2025.03)",
+    "status": "Closed"
+  },
+  {
+    "ticket_id": "T-OPEN-004",
+    "created_at": "2025-11-12T09:00:00Z",
+    "closed_at": "2025-11-12T09:00:00Z",
+    "module_reported": "ClaimCenter",
+    "summary": "Claim submission failing for large attachments - STILL OPEN",
+    "description": "ClaimCenter claim submission fails when attaching files over 25MB. Investigation in progress, root cause not yet identified.",
+    "resolution_notes": "Not yet resolved -- actively being investigated by ClaimCenter-Backend team.",
+    "priority": "P2",
+    "assignee_team": "ClaimCenter-Backend",
+    "guidewire_version": "Mammoth (2025.03)",
+    "status": "Open"
+  },
+  {
+    "ticket_id": "T-PROG-005",
+    "created_at": "2025-11-11T09:00:00Z",
+    "closed_at": "2025-11-11T09:00:00Z",
+    "module_reported": "BillingCenter",
+    "summary": "Payment gateway timeout errors - IN PROGRESS",
+    "description": "BillingCenter payment processing intermittently times out when calling external payment gateway. Fix is being tested in staging.",
+    "resolution_notes": "Fix in progress -- staging validation underway, not yet promoted to production.",
+    "priority": "P2",
+    "assignee_team": "BillingCenter-Backend",
+    "guidewire_version": "Mammoth (2025.03)",
+    "status": "In Progress"
+  }
+]

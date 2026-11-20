@@ -1,0 +1,58 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-PRM-003",
+  "root_cause_codes": [
+    "PRM-03"
+  ],
+  "play": "RB-PRM Play 9",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Premium Recalculation > General Liability",
+  "title": "GL premium change reaches Billing or the data warehouse wrongly",
+  "keywords": [
+    "general liability",
+    "write-off",
+    "written off",
+    "escrow",
+    "prior term",
+    "audit premium",
+    "data warehouse",
+    "billed wrong amount"
+  ],
+  "symptoms": [
+    "Written-off premium returns to the balance after a GL endorsement",
+    "Invoice billed wrong after a prior-term GL change or audit",
+    "GL audit premium in the data warehouse differs from PolicyCenter"
+  ],
+  "cause": "A premium delta from a GL endorsement, audit or prior-term change is billed to the wrong term or invoice, reverses an earlier write-off, or is extracted with stale values.",
+  "diagnosis": [
+    "Reconcile the PolicyCenter GL transaction against Billing charges and the data warehouse row"
+  ],
+  "resolution": [
+    "Correct the billing instruction or Billing adjustment",
+    "Re-extract the data warehouse record"
+  ],
+  "workaround": "Manual Billing adjustment.",
+  "permanent_fix": "Fix charge mapping for prior-term and write-off scenarios; three-way reconciliation report.",
+  "escalation": "Integration Support + Billing Support; DW Support for extracts.",
+  "related_tickets": [
+    "T0024",
+    "T0145",
+    "T0154",
+    "T0180"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-PRM-03",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

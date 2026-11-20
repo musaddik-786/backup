@@ -1,0 +1,67 @@
+{
+  "module": "PolicyCenter",
+  "runbook": "RB-OOS",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term and job number of the failing change",
+    "Change effective date and effective dates of all later bound jobs",
+    "What was changed (driver, vehicle/VIN, coverage, named insured)",
+    "Exact error text, screenshot, user ID and time with time zone",
+    "Whether the job was approved / UW referral cleared; other policies affected?"
+  ],
+  "version": "1.0",
+  "version_date": "2026-11-17",
+  "lob_scope": "auto (drivers/vehicles/VIN)",
+  "article_id": "KB-PC-OOS-004",
+  "root_cause_codes": [
+    "OOS-04",
+    "REL-05"
+  ],
+  "play": "RB-OOS Play 4",
+  "category": "Policy Processing > OOS Endorsements / Effective Dating",
+  "title": "Prior-term, multi-term, cancelled-term or reversal OOS changes fail",
+  "keywords": [
+    "prior term",
+    "renewal",
+    "cancelled for non-payment",
+    "purge",
+    "three terms",
+    "reverse endorsement",
+    "reinstatement",
+    "cancellation job",
+    "out of sync"
+  ],
+  "symptoms": [
+    "Internal server error fixing a prior-term OOS transaction",
+    "Cannot purge or update an OOS change on a cancelled renewal",
+    "OOS across several terms runs more than an hour",
+    "Reverse endorsement or reinstatement errors; policies out of sync after a cancellation batch"
+  ],
+  "cause": "The change rolls forward into renewed terms; each extra term multiplies the slices to re-rate. Cancelled or non-renewed terms restrict withdraw and purge. Reversals and reinstatements re-sequence later jobs.",
+  "diagnosis": [
+    "Map the term chain and the status of every term",
+    "Identify any cancelled or non-renewed term",
+    "Check batch history for the cancellation job if several policies are out of sync"
+  ],
+  "resolution": [
+    "Apply the change term by term, earliest first",
+    "For a cancelled renewal, reinstate or rewrite first, or have L3 purge the stray job",
+    "Run multi-term changes off-peak"
+  ],
+  "workaround": "Term-by-term changes as above.",
+  "permanent_fix": "Rules that block OOS changes on cancelled terms with a clear message; performance review of multi-term roll-forward.",
+  "escalation": "PC L3 Policy Transactions for purge or data fix.",
+  "related_tickets": [
+    "T0194",
+    "T0258",
+    "T0406"
+  ],
+  "related_tickets_secondary": [
+    "T0079",
+    "T0373",
+    "T0407"
+  ],
+  "unit_id": "PC-OOS-04",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

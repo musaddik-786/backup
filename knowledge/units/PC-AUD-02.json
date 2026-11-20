@@ -1,0 +1,56 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-AUD-002",
+  "root_cause_codes": [
+    "AUD-02"
+  ],
+  "play": "RB-AUD Play 2",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Audit Adjustments > General Liability",
+  "title": "Non-compliant (estimated) GL audit premium is wrong",
+  "keywords": [
+    "general liability",
+    "non-compliant audit",
+    "estimated audit",
+    "uplift",
+    "10%",
+    "premium rose",
+    "return premium",
+    "deposit premium"
+  ],
+  "symptoms": [
+    "GL premium rose far more than the 10% basis uplift",
+    "Non-compliant GL audit produces a return premium"
+  ],
+  "cause": "A custom rule uplifts each exposure's estimated basis (here +10%). Defects: uplift compounded per slice or exposure, applied after ILF/modifiers, applied to the wrong base, or the minimum/deposit premium not respected.",
+  "diagnosis": [
+    "Hold the invoice",
+    "Check the uplift base for each exposure and slice",
+    "Recompute the expected estimated premium including minimums"
+  ],
+  "resolution": [
+    "Re-run the audit with the uplift applied once to each exposure's annual estimated basis (revised audit)"
+  ],
+  "workaround": "Manual estimate approved by Premium Audit.",
+  "permanent_fix": "Configurable uplift rule: once per exposure, before ILF and modifiers, never a return premium, respecting minimum/deposit premium.",
+  "escalation": "PC L3 Rating & Audit with the Premium Audit business owner.",
+  "related_tickets": [
+    "T0269",
+    "T0408"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-AUD-02",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

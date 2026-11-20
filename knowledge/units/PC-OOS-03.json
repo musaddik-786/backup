@@ -1,0 +1,65 @@
+{
+  "module": "PolicyCenter",
+  "runbook": "RB-OOS",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term and job number of the failing change",
+    "Change effective date and effective dates of all later bound jobs",
+    "What was changed (driver, vehicle/VIN, coverage, named insured)",
+    "Exact error text, screenshot, user ID and time with time zone",
+    "Whether the job was approved / UW referral cleared; other policies affected?"
+  ],
+  "version": "1.0",
+  "version_date": "2026-11-17",
+  "lob_scope": "auto (drivers/vehicles/VIN)",
+  "article_id": "KB-PC-OOS-003",
+  "root_cause_codes": [
+    "OOS-03"
+  ],
+  "play": "RB-OOS Play 3",
+  "category": "Policy Processing > OOS Endorsements",
+  "title": "Internal server error during an OOS endorsement",
+  "keywords": [
+    "out-of-sequence",
+    "internal server error",
+    "server error",
+    "status error",
+    "error box",
+    "save",
+    "NullPointerException"
+  ],
+  "symptoms": [
+    "Generic 'internal server error' while processing, saving or quoting an OOS endorsement",
+    "Error box on save; status error on the job"
+  ],
+  "cause": "Unhandled null-pointer or illegal-state errors in custom code that assumes the current slice equals all slices (for example, reading a vehicle that does not exist in a later slice).",
+  "diagnosis": [
+    "Get the server log stack trace by user and timestamp (logging console or Guidewire Cloud Console)",
+    "Identify the throwing class and match it against the known-error list",
+    "Note the edits in the change and their order"
+  ],
+  "resolution": [
+    "Split the change into smaller same-date changes",
+    "Change the order of edits (remove before add)",
+    "If no workaround works, L3 analyses the trace and applies a data fix"
+  ],
+  "workaround": "Split or reorder the change as above.",
+  "permanent_fix": "Null-safe handling for entities that do not exist on every slice, plus a regression test (Problem record).",
+  "escalation": "PC L3 Policy Transactions when a stack trace points at custom code.",
+  "related_tickets": [
+    "T0037",
+    "T0129",
+    "T0278",
+    "T0293",
+    "T0324",
+    "T0346",
+    "T0369",
+    "T0389",
+    "T0398",
+    "T0410"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-OOS-03",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

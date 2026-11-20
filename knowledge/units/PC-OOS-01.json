@@ -1,0 +1,69 @@
+{
+  "module": "PolicyCenter",
+  "runbook": "RB-OOS",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term and job number of the failing change",
+    "Change effective date and effective dates of all later bound jobs",
+    "What was changed (driver, vehicle/VIN, coverage, named insured)",
+    "Exact error text, screenshot, user ID and time with time zone",
+    "Whether the job was approved / UW referral cleared; other policies affected?"
+  ],
+  "version": "1.0",
+  "version_date": "2026-11-17",
+  "lob_scope": "auto (drivers/vehicles/VIN)",
+  "article_id": "KB-PC-OOS-001",
+  "root_cause_codes": [
+    "OOS-01"
+  ],
+  "play": "RB-OOS Play 1",
+  "category": "Policy Processing > OOS Endorsements",
+  "title": "OOS endorsement deletes or loses drivers/operators or vehicles",
+  "keywords": [
+    "out-of-sequence",
+    "OOS",
+    "backdate",
+    "operator",
+    "driver",
+    "vehicle",
+    "VIN",
+    "remove vehicle",
+    "operators deleted",
+    "operators missing",
+    "would not book"
+  ],
+  "symptoms": [
+    "Operators/drivers deleted or missing on later transactions after an OOS endorsement",
+    "OOS endorsement will not book because operators are missing",
+    "Internal error on OOS after a VIN change or backdated vehicle removal"
+  ],
+  "cause": "When an out-of-sequence change binds, PolicyCenter applies its differences to every later job (roll-forward), matching effective-dated entities by FixedId. If a VIN change or CRM contact sync replaces a driver/vehicle instead of updating it, the merge sees delete-plus-add and custom conflict handling drops the entity from later slices.",
+  "diagnosis": [
+    "Confirm OOS: change effective date is earlier than a later bound job (Policy File > Transactions)",
+    "Compare driver and vehicle lists slice by slice; note FixedIds and VINs",
+    "Review the Out of Sequence Conflicts step for unexpected removals"
+  ],
+  "resolution": [
+    "Withdraw the failing change",
+    "Re-create it with only the driver/vehicle edits; resolve conflicts keeping future values for unrelated entities",
+    "Apply VIN or other edits as a separate same-date change",
+    "If later slices already lost operators, L3 re-keys them or runs an approved data fix"
+  ],
+  "workaround": "Key the change effective at the first later job's date with an underwriting note, if the business allows.",
+  "permanent_fix": "Fix FixedId-preserving update logic in custom OOS and CRM-sync code (Problem record).",
+  "escalation": "PC L2 Application Support > PC L3 Policy Transactions. Escalate if a data fix is needed or more than one policy is affected.",
+  "related_tickets": [
+    "T0075",
+    "T0104",
+    "T0132",
+    "T0169",
+    "T0326"
+  ],
+  "related_tickets_secondary": [
+    "T0096",
+    "T0251"
+  ],
+  "unit_id": "PC-OOS-01",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

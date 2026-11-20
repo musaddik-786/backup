@@ -1,0 +1,41 @@
+[
+  {
+    "release_id": "XENG-2840",
+    "product": "ClaimCenter",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-11-15",
+    "note_type": "resolved_issue",
+    "title": "Fixed duplicate claim creation in batch processing",
+    "details": "ClaimCenter batch claim import process no longer creates duplicate claims when source data contains repeated claim references. Fix ensures idempotency: re-running same batch produces single claim, not multiple. Applies to all batch import types (manual, scheduled, API-triggered).",
+    "affected_modules": [
+      "ClaimCenter"
+    ],
+    "source_url": "https://docs.guidewire.com/2025.03/release-notes#XENG-2840"
+  },
+  {
+    "release_id": "XENG-2841",
+    "product": "GuidewireProduct",
+    "version": "Palisades",
+    "release_date": "2025-11-15",
+    "note_type": "known_issue",
+    "title": "Performance may vary in certain scenarios",
+    "details": "Known issue identified in testing. Under specific conditions, performance may vary. Workaround: monitor system metrics. Updates coming in future release.",
+    "affected_modules": [],
+    "source_url": null
+  },
+  {
+    "release_id": "XENG-2842",
+    "product": "IntegrationGateway",
+    "version": "Mammoth (2025.03)",
+    "release_date": "2025-11-15",
+    "note_type": "feature",
+    "title": "New webhook support for PolicyCenter and ClaimCenter events",
+    "details": "IntegrationGateway now supports outbound webhooks for PolicyCenter and ClaimCenter lifecycle events: policy_created, policy_updated, claim_submitted, claim_approved, claim_closed. Webhooks can be configured per entity type with custom headers and retry logic. Enables real-time integrations with third-party systems (Salesforce, Slack, custom APIs).",
+    "affected_modules": [
+      "PolicyCenter",
+      "ClaimCenter",
+      "IntegrationGateway"
+    ],
+    "source_url": "https://docs.guidewire.com/2025.03/integrationgateway/webhooks"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-PRM-002",
+  "root_cause_codes": [
+    "PRM-02"
+  ],
+  "play": "RB-PRM Play 8",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Premium Recalculation > General Liability",
+  "title": "Unexpected premium on a GL endorsement (exposure, class or limit change)",
+  "keywords": [
+    "general liability",
+    "endorsement",
+    "amend exposures",
+    "add class",
+    "limit change",
+    "ILF",
+    "unusual premium",
+    "re-rate"
+  ],
+  "symptoms": [
+    "Premium delta out of proportion to the exposure, class or limit change on a GL endorsement"
+  ],
+  "cause": "Re-rating applies ILF, minimum premium, Products-Completed Operations or modifiers differently from new business, or rates the changed exposure from the wrong date.",
+  "diagnosis": [
+    "Export rating worksheets before and after the change",
+    "Compare exposure by exposure: basis, divisor, rate, ILF, modifiers, minimums"
+  ],
+  "resolution": [
+    "Correct the rate, ILF or class configuration and re-quote"
+  ],
+  "workaround": "Manual premium override, if the product allows, with approval.",
+  "permanent_fix": "Rate configuration fix plus regression test.",
+  "escalation": "PC L3 Rating & Audit.",
+  "related_tickets": [
+    "T0127"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-PRM-02",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

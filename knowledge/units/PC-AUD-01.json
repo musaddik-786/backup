@@ -1,0 +1,66 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-AUD-001",
+  "root_cause_codes": [
+    "AUD-01"
+  ],
+  "play": "RB-AUD Play 1",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Audit Adjustments > General Liability",
+  "title": "GL audit premium moves the wrong way against the reported basis, or a revised audit cannot correct it",
+  "keywords": [
+    "general liability",
+    "GL audit",
+    "final audit",
+    "revised audit",
+    "payroll",
+    "gross sales",
+    "receipts",
+    "exposure basis",
+    "class code",
+    "premium decreases",
+    "premium increased",
+    "rating incorrectly"
+  ],
+  "symptoms": [
+    "GL audit premium decreases when payroll or sales increase (or the reverse)",
+    "GL audit premium too high; a revised audit cannot correct it",
+    "GL audits rating incorrectly"
+  ],
+  "cause": "GL premium per exposure = (basis / divisor) x rate x ILF x modifiers, rated separately for Premises/Operations and Products-Completed Operations, then minimums; audit premium = audited premium minus premium charged. Inversions usually mean the estimated basis was rated on a slice, the wrong divisor or basis type was used, the delta sign is wrong, a minimum premium hid the change, or a revision used the wrong based-on period.",
+  "diagnosis": [
+    "Hold the audit invoice in Billing",
+    "Run the direction test: higher audited basis must mean higher premium on that exposure unless a minimum applies",
+    "Recompute per exposure and slice: (basis / divisor) x rate x ILF x modifiers, minimums, minus billed premium",
+    "Compare with the rating worksheet per exposure"
+  ],
+  "resolution": [
+    "If the recompute matches PolicyCenter (minimum premium, ILF, PCO rating), explain and close as How-to",
+    "Otherwise L3 traces the GL rate routine per exposure, corrects basis or slice data and runs a revised audit"
+  ],
+  "workaround": "Hold the bill and make a manual premium adjustment approved by Premium Audit.",
+  "permanent_fix": "Fix the GL rate routine; add a GL audit regression pack with a direction test per basis type and per state.",
+  "escalation": "PC L3 Rating & Audit if the recompute differs by more than 1% or $50; Sev 2 if more than one policy on the same class code or bills issued.",
+  "related_tickets": [
+    "T0060",
+    "T0240",
+    "T0242",
+    "T0261",
+    "T0294"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-AUD-01",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

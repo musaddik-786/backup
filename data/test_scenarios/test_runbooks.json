@@ -1,0 +1,48 @@
+[
+  {
+    "runbook_id": "RB-CC-201",
+    "last_updated": "2025-10-20",
+    "owner_team": "ClaimCenter-DBA",
+    "module_reported": "ClaimCenter",
+    "title": "ClaimCenter: Recover from database deadlock",
+    "trigger_condition": "When PostgreSQL logs contain 'ERROR: deadlock detected' for ClaimCenter tables (claim, claim_line_item, claim_expense). Triggers when deadlock occurs >3 times in 5 minutes.",
+    "steps": [
+      "1. Confirm deadlock via: SELECT * FROM pg_stat_statements WHERE query LIKE '%claim%' ORDER BY conflicts DESC LIMIT 5",
+      "2. Identify blocking transaction: SELECT pid, usename, state FROM pg_stat_activity WHERE state != 'idle'",
+      "3. Kill blocking transaction: SELECT pg_terminate_backend(pid) for the offending PID",
+      "4. Verify claim table locks cleared: SELECT * FROM pg_locks WHERE relation::regclass::text LIKE '%claim%'",
+      "5. Restart ClaimCenter service: systemctl restart claimcenter-api",
+      "6. Monitor for recurrence: tail -f /var/log/claimcenter/error.log | grep deadlock"
+    ]
+  },
+  {
+    "runbook_id": "RB-GEN-101",
+    "last_updated": "2025-11-01",
+    "owner_team": "General Support",
+    "module_reported": "system",
+    "title": "Troubleshooting: System slowness",
+    "trigger_condition": "If users report slow performance",
+    "steps": [
+      "1. Check system resources",
+      "2. Monitor database",
+      "3. Contact engineering if problem persists"
+    ]
+  },
+  {
+    "runbook_id": "RB-IG-301",
+    "last_updated": "2025-10-15",
+    "owner_team": "IntegrationGateway-Oncall",
+    "module_reported": "IntegrationGateway",
+    "title": "IntegrationGateway: Connection pool exhaustion response",
+    "trigger_condition": "When connection_wait_time_ms > 5000 for >2 consecutive minutes, OR when active_connection_count > 95% of max_pool_size (default: 50). Alert fires via Grafana /d/integration-gateway-health.",
+    "steps": [
+      "1. Verify alert threshold: curl http://localhost:9090/metrics | grep ig_active_connections",
+      "2. Check for stuck connections: SELECT COUNT(*) FROM pg_stat_activity WHERE state = 'idle in transaction'",
+      "3. Identify slow/hung queries: SELECT pid, query, backend_start, state_change FROM pg_stat_activity WHERE state != 'idle' AND query_start < now() - interval '5 minutes'",
+      "4. Terminate idle-in-transaction sessions: SELECT pg_terminate_backend(pid) for pids > 10 minutes old",
+      "5. If >80% utilization persists, trigger auto-scaling: kubectl scale deployment integration-gateway --replicas=3",
+      "6. Monitor recovery: watch -n 2 'curl http://localhost:9090/metrics | grep ig_active_connections'",
+      "7. Post-incident: Review gateway logs for slow integrations, increase query timeouts if needed"
+    ]
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "module": "PolicyCenter",
+  "applies_to": "Guidewire PolicyCenter 10.x / Guidewire Cloud / earlier on-premise",
+  "info_to_collect": [
+    "Policy, term, audit job number and audit type (final, interim, revision, non-compliant)",
+    "Each GL exposure: class code, location/state, basis type (payroll, sales, area, units), estimated and audited basis",
+    "Whether Products-Completed Operations applies; limits (each occurrence / aggregate)",
+    "Expected premium and direction vs premium shown",
+    "Mid-term changes (class added/removed, location or limit change) and dates; keyed by auditor or automation; screenshots"
+  ],
+  "version": "2.0",
+  "version_date": "2026-11-18",
+  "lob_scope": "commercial general liability",
+  "article_id": "KB-PC-AUD-006",
+  "root_cause_codes": [
+    "AUD-06"
+  ],
+  "play": "RB-AUD Play 6",
+  "runbook": "RB-AUD/PRM",
+  "category": "Rating > Audit Adjustments > General Liability",
+  "title": "GL audit basis entered without supporting data or in the wrong unit for the class",
+  "keywords": [
+    "general liability",
+    "payroll",
+    "employee",
+    "gross sales",
+    "basis type",
+    "divisor",
+    "class code",
+    "zero basis",
+    "validation"
+  ],
+  "symptoms": [
+    "Payroll entered with zero employees",
+    "Sales or payroll keyed on a class rated on a different basis",
+    "Zero basis on a class that is not 'if any'"
+  ],
+  "cause": "Missing validation rules: basis must match the class's basis type and unit; payroll requires an employee count.",
+  "diagnosis": [
+    "Review the basis entry per exposure with the auditor or user"
+  ],
+  "resolution": [
+    "Correct the data with the auditor or user and re-rate"
+  ],
+  "workaround": "None needed.",
+  "permanent_fix": "Validation rules: basis matches class basis type; payroll requires employee count (T0105); warning on zero basis.",
+  "escalation": "PC L3 Rating & Audit for the rule change.",
+  "related_tickets": [
+    "T0105"
+  ],
+  "related_tickets_secondary": [],
+  "unit_id": "PC-AUD-06",
+  "source_doc": "PC_KB_Articles_OOS_Audit_Premium.pdf (v2)",
+  "review_status": "draft-pending-sme-review"
+}

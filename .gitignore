@@ -1,0 +1,20 @@
+# secrets / env
+.env
+*.env
+!sample.env
+.env.*
+# python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+# node / ui build
+node_modules/
+ui/dist/
+*.tsbuildinfo
+*.local
+# os / tools
+.DS_Store
+.claude/worktrees/
